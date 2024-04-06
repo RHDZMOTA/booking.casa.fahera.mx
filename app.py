@@ -70,11 +70,13 @@ class Landing(PageView, BookingHeader):
 
 class Booking(PageView, BookingHeader):
     def view(self, **kwargs):
-        x = st.date_input(
+        min_value = dt.datetime.today() + dt.timedelta(days=2)
+        max_value = dt.date(min_value.year + 4, 1, 1)
+        stay = st.date_input(
             "Select your stay",
-            value=(today := dt.datetime.today()),
-            min_value=today,
-            max_value=dt.date(today.year + 4, 1, 1),
+            value=(min_value, min_value + dt.timedelta(days=5)),
+            min_value=min_value,
+            max_value=max_value,
             format="YYYY-MM-DD",
         )
 
